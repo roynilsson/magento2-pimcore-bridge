@@ -109,9 +109,9 @@ interface ConfigInterface
     public function getAssetQueueProcess(): int;
 
     /**
-     * @return int
+     * @return string
      */
-    public function getAssetThumbnail(): int;
+    public function getAssetThumbnail(): string;
 
     /**
      * @return string
