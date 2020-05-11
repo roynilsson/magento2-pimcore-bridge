@@ -61,6 +61,11 @@ interface ConfigInterface
     /**
      * Configuration path for Asset Queue Process
      */
+    const XML_PATH_ASSET_THUMBNAIL = 'pimcore/integration/asset_thumbnail';
+
+    /**
+     * Configuration path for Asset Queue Process
+     */
     const XML_PATH_CRON_PUBLISH_IS_ACTIVE = 'cron/enable_products/is_active';
 
     /**
@@ -102,6 +107,11 @@ interface ConfigInterface
      * @return int
      */
     public function getAssetQueueProcess(): int;
+
+    /**
+     * @return int
+     */
+    public function getAssetThumbnail(): int;
 
     /**
      * @return string

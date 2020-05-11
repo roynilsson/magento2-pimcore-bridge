@@ -21,6 +21,7 @@ use Divante\PimcoreIntegration\Queue\Action\Asset\Strategy\AssetHandlerStrategyF
 use Divante\PimcoreIntegration\Queue\Action\Asset\TypeMetadataExtractorFactory;
 use Divante\PimcoreIntegration\Queue\Action\Asset\TypeMetadataExtractorInterface;
 use Divante\PimcoreIntegration\Queue\ActionInterface;
+use Divante\PimcoreIntegration\System\ConfigInterface;
 use Magento\Catalog\Model\Category;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\Exception\LocalizedException;
@@ -61,6 +62,11 @@ class UpdateAssetAction implements ActionInterface
     private $strategyFactory;
 
     /**
+     * @var ConfigInterface
+     */
+    private $config;
+
+    /**
      * UpdateAssetAction constructor.
      *
      * @param RequestClientInterface $requestClient
@@ -76,7 +82,8 @@ class UpdateAssetAction implements ActionInterface
         ResponseTransformatorInterface $transformator,
         TypeMetadataExtractorFactory $metadataExtractorFactory,
         ChecksumValidator $checksumValidator,
-        AssetHandlerStrategyFactory $strategyFactory
+        AssetHandlerStrategyFactory $strategyFactory,
+        ConfigInterface $config
     ) {
         $this->request = $requestClient;
         $this->urlBuilder = $urlBuilder;
@@ -84,6 +91,7 @@ class UpdateAssetAction implements ActionInterface
         $this->metadataExtractorFactory = $metadataExtractorFactory;
         $this->checksumValidator = $checksumValidator;
         $this->strategyFactory = $strategyFactory;
+        $this->config = $config;
     }
 
     /**
@@ -154,6 +162,11 @@ class UpdateAssetAction implements ActionInterface
             ->setMethod('GET')
             ->setStoreViewId($queue->getStoreViewId());
 
+            $thumbnail = $this->config->getAssetThumbnail();
+            if ($thumbnail) {
+                $this->request->setQueryData(['thumbnail' => $thumbnail]);
+            }
+            
         return $this->request;
     }
 }

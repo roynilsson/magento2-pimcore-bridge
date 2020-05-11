@@ -110,6 +110,14 @@ class Config implements ConfigInterface
     {
         return (int) $this->scopeConfig->getValue(static::XML_PATH_ASSET_QUEUE_PROCESS, $this->scope);
     }
+    
+    /**
+     * @return string
+     */
+    public function getAssetThumbnail(): string
+    {
+        return (string) $this->scopeConfig->getValue(static::XML_PATH_ASSET_THUMBNAIL, $this->scope);
+    }
 
     /**
      * @return string
