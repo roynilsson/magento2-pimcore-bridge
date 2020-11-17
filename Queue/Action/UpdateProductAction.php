@@ -185,6 +185,12 @@ class UpdateProductAction implements ActionInterface
             $dataModifier->handle($product, $pimcoreProduct);
         }
 
+        // add product in current website
+        $websiteIds = $product->getWebsiteIds();
+        $websiteIds[] = $this->storeManager->getWebsite()->getWebsiteId();
+        $websiteIds = array_unique($websiteIds);
+        $product->setWebsiteIds($websiteIds);
+
         $product->addData($pimcoreProduct->getData());
         // We manage linking category, related_products in after event
         $product->unsetData('category_ids');
