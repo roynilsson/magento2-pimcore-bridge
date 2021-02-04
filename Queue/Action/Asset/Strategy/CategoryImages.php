@@ -118,7 +118,10 @@ class CategoryImages implements AssetHandlerStrategyInterface
             $category = $this->categoryRepository->getByPimId($queue->getTargetEntityId(), $queue->getStoreViewId());
         } catch (NoSuchEntityException $e) {
             if ($this->queueImporter->isAlreadyQueued($this->createCategoryQueue($queue))) {
-                return $this->actionResultFactory->create(['result' => ActionResultInterface::SKIPPED]);
+                return $this->actionResultFactory->create([
+                    'result' => ActionResultInterface::SKIPPED,
+                    'message' => 'Is already queued'
+                ]);
             }
 
             throw new LocalizedException(

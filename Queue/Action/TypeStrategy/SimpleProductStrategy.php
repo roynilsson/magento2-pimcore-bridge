@@ -95,6 +95,7 @@ class SimpleProductStrategy implements ProductTypeCreationStrategyInterface
             }
 
             $product->setIsSkip(true);
+            $product->setSkipReason(sprintf('Unable to import product. Parent product with ID "%d" is not published.', $parentId));
         }
 
         $product->setStatus(Status::STATUS_ENABLED);

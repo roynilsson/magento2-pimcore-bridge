@@ -204,7 +204,10 @@ class UpdateCategoryAction implements ActionInterface
                 );
             }
 
-            return $this->actionResultFactory->create(['result' => ActionResultInterface::SKIPPED]);
+            return $this->actionResultFactory->create([
+                'result' => ActionResultInterface::SKIPPED,
+                'message' => sprintf('Unable to import category. Parent category with ID "%d" is not published yet.', $category->getData('pimcore_parent_id'))
+            ]);
         }
 
         $this->eventManager->dispatch('pimcore_category_update_before', ['category' => $category]);
