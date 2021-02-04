@@ -19,13 +19,20 @@ class ActionResult implements ActionResultInterface
     private $result;
 
     /**
+     * @var string
+     */
+    private $message;
+
+    /**
      * ActionResult constructor.
      *
      * @param string $result
+     * @param string $message
      */
-    public function __construct(string $result)
+    public function __construct(string $result, string $message)
     {
         $this->result = $result;
+        $this->message = $message;
     }
 
     /**
@@ -34,5 +41,13 @@ class ActionResult implements ActionResultInterface
     public function getResult(): string
     {
         return $this->result;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessage(): string
+    {
+        return $this->message;
     }
 }
