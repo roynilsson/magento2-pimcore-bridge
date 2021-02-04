@@ -142,7 +142,7 @@ abstract class AbstractQueueProcessor implements QueueProcessorInterface
 
             try {
                 if ($result->getResult() === ActionResultInterface::SKIPPED) {
-                    $this->skipQueueAndPushToEndOfStack($queue);
+                    $this->skipQueueAndPushToEndOfStack($queue, $result->getMessage());
                 } else {
                     $this->closeQueueAndSendNotification($queue);
                 }
@@ -225,15 +225,16 @@ abstract class AbstractQueueProcessor implements QueueProcessorInterface
      *
      * @return void
      */
-    protected function skipQueueAndPushToEndOfStack(QueueInterface $queue)
+    protected function skipQueueAndPushToEndOfStack(QueueInterface $queue, $message='')
     {
         $queue->setStatus(QueueStatusInterface::PENDING);
         $queue->setUpdatedAt(date('Y-m-d H:i:s'));
         $this->logger->info(
             __(
-                'Action "%1 for a pimcore object with ID %2 was skipped.',
+                'Action "%1 for a pimcore object with ID %2 was skipped. %3',
                 $queue->getAction(),
-                $queue->getPimcoreId()
+                $queue->getPimcoreId(),
+                $message
             )
         );
     }

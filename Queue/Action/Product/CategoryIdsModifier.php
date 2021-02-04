@@ -107,6 +107,7 @@ class CategoryIdsModifier implements DataModifierInterface
             }
 
             $pimcoreProduct->setData('is_skip', true);
+            $pimcoreProduct->setData('skip_reason', sprintf('Missing categories with pimcore ids %s', json_encode($missingCatPimIds)));
         }
 
         return [$product, $pimcoreProduct];

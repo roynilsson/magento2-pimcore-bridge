@@ -200,7 +200,10 @@ class UpdateProductAction implements ActionInterface
         );
 
         if ($product->getIsSkip()) {
-            return $this->actionResultFactory->create(['result' => ActionResultInterface::SKIPPED]);
+            return $this->actionResultFactory->create([
+                'result' => ActionResultInterface::SKIPPED,
+                'message' => $product->getSkipReason()
+            ]);
         }
 
         $saved = $this->productRepository->save($product);

@@ -163,7 +163,10 @@ class ProductImage implements AssetHandlerStrategyInterface
             $product = $this->productRepository->getByPimId($queue->getTargetEntityId());
         } catch (\Exception $e) {
             if ($this->queueImporter->isAlreadyQueued($this->createProductQueue($queue))) {
-                return $this->actionResultFactory->create(['result' => ActionResultInterface::SKIPPED]);
+                return $this->actionResultFactory->create([
+                    'result' => ActionResultInterface::SKIPPED,
+                    'message' => 'Is already queued'
+                ]);
             }
 
             throw new LocalizedException(
