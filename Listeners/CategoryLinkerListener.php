@@ -59,18 +59,7 @@ class CategoryLinkerListener implements ObserverInterface
 
         $categoryIds = $pimcoreProduct->getData('category_ids') ?? [];
 
-        $catsToUnlink = array_diff($product->getCategoryIds(), $categoryIds);
-        $catsToLink = array_diff($categoryIds, $product->getCategoryIds());
-
-        if ($catsToLink) {
-            $this->categoryLinkManagement->assignProductToCategories($product->getSku(), $catsToLink);
-        }
-
-        if ($catsToUnlink) {
-            foreach ($catsToUnlink as $catId) {
-                $this->categoryLinkRepository->deleteByIds($catId, $product->getSku());
-            }
-        }
+        $this->categoryLinkManagement->assignProductToCategories($product->getSku(), $categoryIds);
 
         $product->setData('category_ids', $categoryIds);
     }
