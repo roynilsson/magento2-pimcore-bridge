@@ -29,7 +29,7 @@ class ActionResult implements ActionResultInterface
      * @param string $result
      * @param string $message
      */
-    public function __construct(string $result, string $message)
+    public function __construct(string $result, string $message='')
     {
         $this->result = $result;
         $this->message = $message;
