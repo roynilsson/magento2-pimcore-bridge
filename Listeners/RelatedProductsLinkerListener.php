@@ -76,11 +76,10 @@ class RelatedProductsLinkerListener implements ObserverInterface
             return;
         }
 
-        $productLinks = $this->linkInterfaceFactory->create();
-
         $links = [];
 
         foreach ($collection->getItems() as $item) {
+            $productLinks = $this->linkInterfaceFactory->create();
             $links[] = $productLinks
                 ->setSku($pimcoreProduct->getData('sku'))
                 ->setLinkedProductSku($item->getData('sku'))
